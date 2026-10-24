@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Trial Digital Twin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Clinical Trial Digital Twin</h1>
+        <p>Blockchain-Based Data Integrity Monitoring</p>
+    </header>
+
+    <main>
+        <section class="trial-info">
+            <h2 id="trial-name">Loading Trial...</h2>
+            <p>Trial ID: <span id="trial-id">--</span></p>
+            <p>Status: <span id="trial-status">--</span></p>
+        </section>
+
+        <section class="dashboard">
+            <div class="card">
+                <h3>Participants</h3>
+                <p id="participants">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Research Centers</h3>
+                <p id="centers">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Clinical Records</h3>
+                <p id="records">0</p>
+            </div>
+
+            <div class="card verified">
+                <h3>Verified Records</h3>
+                <p id="verified">0</p>
+            </div>
+
+            <div class="card tampered">
+                <h3>Tampered Records</h3>
+                <p id="tampered">0</p>
+            </div>
+        </section>
+
+        <section class="alert-section">
+            <h2>Integrity Monitoring</h2>
+            <p id="integrity-alert">Checking data integrity...</p>
+        </section>
+
+        <section class="records-section">
+    <h2>Clinical Records Integrity</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Record ID</th>
+                <th>Integrity Status</th>
+            </tr>
+        </thead>
+        <tbody id="records-table">
+            <tr>
+                <td colspan="2">Loading records...</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
