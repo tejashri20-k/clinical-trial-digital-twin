@@ -45,7 +45,7 @@ class ClinicalData(models.Model):
         data = (
             f"{self.record_id}|"
             f"{self.blood_pressure}|"
-            f"{self.blood_glucose}|"
+            f"{self.blood_glucose:g}|"
             f"{self.treatment}"
         )
 
