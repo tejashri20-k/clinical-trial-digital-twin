@@ -70,8 +70,11 @@
                            pattern="[A-Za-z0-9_-]{2,20}" placeholder="REC005">
                 </label>
 
-                <label>Participant
-                    <select id="f-participant" required></select>
+                <label>Participant ID
+                    <input type="text" id="f-participant" required
+                           list="participant-list" autocomplete="off"
+                           pattern="[A-Za-z0-9_-]{2,20}" placeholder="P002">
+                    <datalist id="participant-list"></datalist>
                 </label>
 
                 <label>Blood Pressure

@@ -151,23 +151,68 @@ async function loadDashboard() {
 /* ------------------------------ add record --------------------------- */
 
 async function loadParticipants() {
-    const select = $("f-participant");
+    const list = $("participant-list");
 
     try {
         const result = await request("/participants/");
         participants = result.results || result;
 
-        select.replaceChildren();
+        list.replaceChildren();
 
         for (const participant of participants) {
             const option = document.createElement("option");
-            option.value = participant.id;
-            option.textContent = participant.participant_id;
-            select.appendChild(option);
+            option.value = participant.participant_id;
+            list.appendChild(option);
+        }
+
+        if (!$("f-participant").value && participants.length > 0) {
+            $("f-participant").value = participants[0].participant_id;
         }
     } catch (error) {
         console.error("Participants error:", error);
     }
+}
+
+async function ensureParticipant(participantId) {
+    const wanted = participantId.trim().toLowerCase();
+
+    const findIt = () => participants.find(
+        (p) => p.participant_id.toLowerCase() === wanted
+    );
+
+    let participant = findIt();
+    if (participant) return participant;
+
+    // not in our list - reload it in case it was created elsewhere
+    await loadParticipants();
+    participant = findIt();
+    if (participant) return participant;
+
+    // genuinely new: attach it to the dashboard's trial and the first center
+    const centersResult = await request("/centers/");
+    const centers = centersResult.results || centersResult;
+
+    if (centers.length === 0) {
+        throw new Error("No research center exists yet, so a new participant cannot be created.");
+    }
+
+    participant = await request("/participants/", {
+        method: "POST",
+        body: JSON.stringify({
+            participant_id: participantId.trim(),
+            trial: TRIAL_PK,
+            center: centers[0].id,
+            status: "Active"
+        })
+    });
+
+    participants.push(participant);
+
+    const option = document.createElement("option");
+    option.value = participant.participant_id;
+    $("participant-list").appendChild(option);
+
+    return participant;
 }
 
 function suggestRecordId(rows) {
@@ -187,20 +232,13 @@ function suggestRecordId(rows) {
 async function saveRecord(event) {
     event.preventDefault();
 
-    const participant = participants.find(
-        (p) => String(p.id) === $("f-participant").value
-    );
-
-    if (!participant) {
-        showMessage("warning", "Choose a participant first.");
-        return;
-    }
-
     const button = $("save-button");
     button.disabled = true;
     button.textContent = "Saving...";
 
     try {
+        const participant = await ensureParticipant($("f-participant").value);
+
         const result = await request("/clinical-data/", {
             method: "POST",
             body: JSON.stringify({
@@ -243,7 +281,6 @@ async function saveRecord(event) {
         button.textContent = "Save & store on blockchain";
     }
 }
-
 
 /* ------------------------------ records table ------------------------ */
 
