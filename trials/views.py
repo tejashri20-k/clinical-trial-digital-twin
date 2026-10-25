@@ -56,6 +56,7 @@ class ClinicalDataViewSet(viewsets.ModelViewSet):
             f"{clinical_data.blood_glucose}|"
             f"{clinical_data.treatment}"
         )
+        print("DATA BEING HASHED:", repr(current_data))
 
         database_hash = generate_hash(current_data)
 
