@@ -61,7 +61,7 @@ async function loadDashboard() {
 
 loadDashboard();
 
-//setInterval(loadDashboard, 5000);
+setInterval(loadDashboard, 5000);
 
 async function loadRecords() {
     const table = document.getElementById("records-table");
@@ -123,4 +123,4 @@ async function loadRecords() {
 }
 
 loadRecords();
-setInterval(loadRecords, 5000);
+//setInterval(loadRecords, 5000);
