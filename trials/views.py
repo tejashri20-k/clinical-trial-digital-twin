@@ -53,7 +53,7 @@ class ClinicalDataViewSet(viewsets.ModelViewSet):
         current_data = (
             f"{clinical_data.record_id}|"
             f"{clinical_data.blood_pressure}|"
-            f"{clinical_data.blood_glucose}|"
+            f"{clinical_data.blood_glucose:g}|"
             f"{clinical_data.treatment}"
         )
         print("DATA BEING HASHED:", repr(current_data))
@@ -95,7 +95,7 @@ def digital_twin(request, trial_id):
         current_data = (
             f"{record.record_id}|"
             f"{record.blood_pressure}|"
-            f"{record.blood_glucose}|"
+            f"{record.blood_glucose:g}|"
             f"{record.treatment}"
         )
 
