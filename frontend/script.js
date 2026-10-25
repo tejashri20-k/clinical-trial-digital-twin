@@ -1,6 +1,5 @@
-const API_URL = "http://127.0.0.1:8000/api/digital-twin/1/";
-
-const RECORDS_URL = "http://127.0.0.1:8000/api/clinical-data/";
+const API_URL = "https://clinical-trial-backend-27zz.onrender.com/api/digital-twin/1/";
+const RECORDS_URL = "https://clinical-trial-backend-27zz.onrender.com/api/clinical-data/";
 
 async function loadDashboard() {
     const alertBox = document.getElementById("integrity-alert");
