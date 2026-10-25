@@ -1,25 +1,19 @@
+import os
 from web3 import Web3
 
-# Connect to Ganache
-w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
+# Connect to Ethereum Sepolia through Alchemy
+RPC_URL = os.environ.get("ALCHEMY_RPC_URL", "")
+w3 = Web3(Web3.HTTPProvider(RPC_URL)) if RPC_URL else Web3()
 
-# Deployed smart contract address
-CONTRACT_ADDRESS = "0x9DB41174221eA8a933FB97016136F2f69e0Bd798"
+# Contract address configured in Render
+CONTRACT_ADDRESS = os.environ.get("CONTRACT_ADDRESS", "")
 
 # Smart contract ABI
 CONTRACT_ABI = [
     {
         "inputs": [
-            {
-                "internalType": "string",
-                "name": "recordId",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "dataHash",
-                "type": "string"
-            }
+            {"internalType": "string", "name": "recordId", "type": "string"},
+            {"internalType": "string", "name": "dataHash", "type": "string"}
         ],
         "name": "storeHash",
         "outputs": [],
@@ -28,41 +22,29 @@ CONTRACT_ABI = [
     },
     {
         "inputs": [
-            {
-                "internalType": "string",
-                "name": "recordId",
-                "type": "string"
-            }
+            {"internalType": "string", "name": "recordId", "type": "string"}
         ],
         "name": "getHash",
         "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
+            {"internalType": "string", "name": "", "type": "string"}
         ],
         "stateMutability": "view",
         "type": "function"
     }
 ]
 
-# Create contract object
-contract = w3.eth.contract(
-    address=CONTRACT_ADDRESS,
-    abi=CONTRACT_ABI
+# Create the contract object only when configuration is available
+contract = (
+    w3.eth.contract(
+        address=Web3.to_checksum_address(CONTRACT_ADDRESS),
+        abi=CONTRACT_ABI
+    )
+    if CONTRACT_ADDRESS and Web3.is_address(CONTRACT_ADDRESS)
+    else None
 )
 
 def store_hash_on_blockchain(record_id, data_hash):
-    account = w3.eth.accounts[0]
-
-    transaction = contract.functions.storeHash(
-        record_id,
-        data_hash
-    ).transact({
-        "from": account
-    })
-
-    receipt = w3.eth.wait_for_transaction_receipt(transaction)
-
-    return receipt
+    raise RuntimeError(
+        "Blockchain writes are disabled on the hosted backend. "
+        "Store hashes through Remix using the authorized wallet."
+    )
