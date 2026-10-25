@@ -58,6 +58,8 @@ class ClinicalDataViewSet(viewsets.ModelViewSet):
         )
         print("DATA BEING HASHED:", repr(current_data))
 
+        print("DATABASE HASH:", generate_hash(current_data))
+
         database_hash = generate_hash(current_data)
 
         if database_hash == blockchain_hash:
