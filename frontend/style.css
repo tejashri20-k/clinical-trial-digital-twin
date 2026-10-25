@@ -170,3 +170,190 @@ main {
         min-width: 300px;
     }
 }
+
+/* ---------- Add record form, actions and status badges ---------- */
+
+.card.pending {
+    border-top-color: #d97706;
+}
+
+.card.pending p {
+    color: #d97706;
+}
+
+.hint {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.form-section {
+    background: white;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.form-section h2 {
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+#record-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+
+#record-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+#record-form input,
+#record-form select {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background: white;
+}
+
+#record-form input:focus,
+#record-form select:focus {
+    outline: 2px solid #818cf8;
+    border-color: #818cf8;
+}
+
+.btn {
+    padding: 10px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+    background: #f1f5f9;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.btn.primary {
+    background: #4338ca;
+    border-color: #4338ca;
+    color: white;
+}
+
+.btn.primary:hover:not(:disabled) {
+    background: #3730a3;
+}
+
+.btn.danger {
+    border-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.btn.danger:hover:not(:disabled) {
+    background: #fee2e2;
+}
+
+.btn.small {
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.message {
+    margin-top: 25px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.message a {
+    color: inherit;
+    font-weight: 700;
+}
+
+.message.success { background: #dcfce7; color: #166534; }
+.message.warning { background: #fef3c7; color: #92400e; }
+.message.danger  { background: #fee2e2; color: #b91c1c; }
+.message.info    { background: #e0e7ff; color: #3730a3; }
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.section-head h2 {
+    margin-bottom: 0;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.badge.verified { background: #dcfce7; color: #15803d; }
+.badge.tampered { background: #fee2e2; color: #b91c1c; }
+.badge.pending  { background: #fef3c7; color: #92400e; }
+.badge.error    { background: #e2e8f0; color: #475569; }
+
+.row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.records-section tr.row-tampered td:first-child {
+    border-left: 4px solid #dc2626;
+}
+
+.records-section tr.row-verified td:first-child {
+    border-left: 4px solid #16a34a;
+}
+
+.records-section tr.details-row td {
+    background: #f8fafc;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.records-section tr.details-row code {
+    font-family: Consolas, Menlo, monospace;
+    word-break: break-all;
+}
+
+@media (max-width: 600px) {
+    .records-section table {
+        min-width: 760px;
+    }
+}

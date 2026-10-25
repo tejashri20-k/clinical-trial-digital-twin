@@ -45,6 +45,11 @@
                 <h3>Tampered Records</h3>
                 <p id="tampered">0</p>
             </div>
+
+            <div class="card pending">
+                <h3>Awaiting Blockchain</h3>
+                <p id="pending">0</p>
+            </div>
         </section>
 
         <section class="alert-section">
@@ -52,23 +57,86 @@
             <p id="integrity-alert">Checking data integrity...</p>
         </section>
 
-        <section class="records-section">
-    <h2>Clinical Records Integrity</h2>
+        <section class="form-section">
+            <h2>1. Add Clinical Record</h2>
+            <p class="hint">
+                Saving a record stores it in the database and writes its
+                SHA-256 hash to the Ethereum Sepolia blockchain.
+            </p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Record ID</th>
-                <th>Integrity Status</th>
-            </tr>
-        </thead>
-        <tbody id="records-table">
-            <tr>
-                <td colspan="2">Loading records...</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+            <form id="record-form">
+                <label>Record ID
+                    <input type="text" id="f-record-id" required
+                           pattern="[A-Za-z0-9_-]{2,20}" placeholder="REC005">
+                </label>
+
+                <label>Participant
+                    <select id="f-participant" required></select>
+                </label>
+
+                <label>Blood Pressure
+                    <input type="text" id="f-bp" required value="120/80"
+                           pattern="[0-9]{2,3}/[0-9]{2,3}" placeholder="120/80">
+                </label>
+
+                <label>Blood Glucose (mg/dL)
+                    <input type="number" id="f-glucose" required
+                           min="1" max="1000" step="0.1" placeholder="98">
+                </label>
+
+                <label>Treatment
+                    <select id="f-treatment" required>
+                        <option>TREATMENT A</option>
+                        <option>TREATMENT B</option>
+                        <option>PLACEBO</option>
+                    </select>
+                </label>
+
+                <button type="submit" id="save-button" class="btn primary">
+                    Save &amp; store on blockchain
+                </button>
+            </form>
+        </section>
+
+        <p id="message" class="message" hidden></p>
+
+        <section class="records-section">
+            <div class="section-head">
+                <h2>2. Verify Records &amp; 3. Demonstrate Tampering</h2>
+                <button type="button" id="refresh-button" class="btn">
+                    Refresh
+                </button>
+            </div>
+
+            <p class="hint">
+                <strong>Tamper</strong> edits the glucose value directly in the
+                database (like an attacker who bypasses the blockchain).
+                The dashboard re-hashes the data, compares it with the hash on
+                the blockchain, and flags the record as TAMPERED.
+                <strong>Restore</strong> puts the original value back.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>Participant</th>
+                            <th>Blood Pressure</th>
+                            <th>Glucose</th>
+                            <th>Treatment</th>
+                            <th>Integrity Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="records-table">
+                        <tr>
+                            <td colspan="7">Loading records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>

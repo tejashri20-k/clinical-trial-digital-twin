@@ -151,6 +151,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     "http://localhost:5500",
     "https://clinical-trial-digital-twin-frontend-jt4urdbmf-bbg22.vercel.app",
+    "https://clinical-trial-digital-twin-fronten.vercel.app",   # <-- added
+]
+
+# Any Vercel preview/production URL of this frontend project   # <-- added
+CORS_ALLOWED_ORIGIN_REGEXES = [                                # <-- added
+    r"^https://clinical-trial-digital-twin-fronten[a-z0-9-]*\.vercel\.app$",
 ]
 
 if os.environ.get("FRONTEND_URL"):
